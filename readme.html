@@ -1,0 +1,82 @@
+<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>RunUO Donation Store System</title>
+	</head>
+	<body>
+		<p>
+		<font style="font-family: Courier New,Monospace; font-size: 12px;">
+		Copyright (C) Ho Man Chung<br/>
+		<br/>
+		This program is free software: you can redistribute it and/or modify<br/>
+		it under the terms of the GNU General Public License as published by<br/>
+		the Free Software Foundation, either version 3 of the License, or<br/>
+		(at your option) any later version.<br/>
+		<br/>
+		This program is distributed in the hope that it will be useful,<br/>
+		but WITHOUT ANY WARRANTY; without even the implied warranty of<br/>
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the<br/>
+		GNU General Public License for more details.<br/>
+		<br/>
+		You should have received a copy of the GNU General Public License<br/>
+		along with this program.  If not, see &#60;http://www.gnu.org/licenses/&#62;.<br/>
+		</font>
+		</p>
+		<p style="padding-top: 20px;">
+		<font style="font-family: Arial,Sans-serif;">
+		<center><font style="font-size: 16px;"><strong>RunUO Donation Store System</strong></font><center><br/>
+		<font style="font-size: 12px;">
+		Author: Antony Ho<br/>
+		Copyright (C) Ho Man Chung<br/>
+		E-mail: <a href="mailto:ntonyworkshop@gmail.com">ntonyworkshop@gmail.com</a><br/>
+		Website: <a href="http://antonyho.net/">http://antonyho.net/</a><br/>
+		</font>
+		</font>
+		</p>
+		<p style="text-align: left; line-height: 18px;">
+		<font style="font-family: Verdana,Sans-serif; font-size: 12px;">
+		<strong>You want your work and your shard to be appreciated and to be donated, you donate to appreciate other people's work/contribution. <font style="color: rgb(255,51,51);">Please consider making 10 dollars donation to this script if this script works and helps your shard.</font> You may also hire me to help on deploying or customizing this system onto your shard and website at a low cost. my e-mail is <a href="mailto:ntonyworkshop@gmail.com">ntonyworkshop@gmail.com</a><br/>
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post"> <!-- Identify your business so that you can collect the payments. --> <input type="hidden" name="business" value="4BTWTW75KQ5A2"> <!-- Specify a Donate button. --> <input type="hidden" name="cmd" value="_donations"> <!-- Specify details about the contribution --> <input type="hidden" name="item_name" value="Script Donation"> <input type="hidden" name="item_number" value="RunUO Donation Store"> <input type="hidden" name="currency_code" value="USD"> <!-- Display the payment button. --> <input type="image" name="submit" border="0" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" alt="PayPal - The safer, easier way to pay online"> <strong><font style="color: rgb(255,51,51);">&#60;&#60;&#60;Click this icon and donate to this script system. Thank you!!!</font></strong> <img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" > </form> <br/>
+		I also work as a free lancer programmer for any projects. Visit my website to get some information about me: <a href="http://antonyho.net/">http://antonyho.net/</a></strong><br/>
+		<br/>
+		</font>
+		</p>
+		<p style="text-align: left; line-height: 18px; padding-top: 30px;">
+		<font style="font-family: Verdana,Sans-serif; font-size: 12px;">
+		<strong>Instructions:</strong><br/>
+		This system is working and is tested on RunUO 2.0. You have to configure the scripts in order to make it work on your shard and website.<br/>
+		<br/>
+		<font style="font-style: italic;"><strong>Create your PayPal account:</strong></font><br/>
+		This system relays on PayPal payment system which can receive donation payment. <a href="https://www.paypal.com/hk/mrb/pal=4BTWTW75KQ5A2">PayPal</a> accepts many different credit or debit cards for the payment. Of course, it accepts VISA, Master, and AE cards. If you do not have PayPal account, create it for free immediately to receive your donation. &#62;&#62;&#62;<a href="https://www.paypal.com/hk/mrb/pal=4BTWTW75KQ5A2">Link to PayPal account registration</a>&#60;&#60;&#60;<br/>
+		<br/>
+		<font style="font-style: italic;"><strong>Create MySQL database:</strong></font><br/>
+		Create a MySQL database. Execute the <strong>schema.sql</strong>. If you do not want to add those donation gifts in the sample, remove the INSERT statements on the last step.<br/>
+		<br/>
+		<font style="font-style: italic;"><strong>RunUO script:</strong></font><br/>
+		Inside <strong>DonationStore.cs</strong>:<br/>
+		Edit <strong>DatabaseServer</strong>, <strong>DatabaseName</strong>, <strong>DatabaseUserID</strong>, <strong>DatabasePassword</strong> as your MySQL database connection information. Remember to grant [SELECT], [INSERT], [DELETE] rights to your user.<br/>
+		<br/>
+		<font style="font-style: italic;"><strong>Web PHP script:</strong></font><br/>
+		Edit everything except the PayPal URL in <strong>config.php</strong> according to your system environment.<br/>
+		</font>
+		</p>
+		<p style="text-align: left; padding-top: 20px;">
+		<font style="font-family: Verdana,Sans-serif; font-size: 12px;">
+		adminpage.php is the web back-office page. You can add/remove gift, check received PayPal transactions, getting auto-generated PayPal donation buttons.<br/>
+		<br/>
+		<font style="font-style: italic;"><strong>A hint for adding donation gift:</strong></font><br/>
+		The Class name is what you exactly type on RunUO command. For instance, "[add <strong>EtherealHorse</strong>". The "EtherealHorse" is the class name. Do not type it wrong or your player will fail to get the item.<br/>
+		</font>
+		</p>
+		<p style="text-align: left; padding-top: 16px;">
+		<font style="font-family: Verdana,Sans-serif; font-size: 11px;">
+		OK! The set up should have done. Time to have beer. Cheers to all shard operators!<br/>
+		If you have got some problem on setting up the system, try send me an email. I will try my best to answer you, if I have time left after my baby daughter. Look aftering a baby is not easy, once again consider making donation to my script. ;)<br/>
+		</font>
+		</p>
+	</body>
+</html>
