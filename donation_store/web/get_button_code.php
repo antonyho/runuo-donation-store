@@ -22,7 +22,7 @@ $temp = "<form action='$pp_uri' method='post'>
 <!-- Specify details about the contribution -->
 <input type='hidden' name='item_name' value='$name'>
 <input type='hidden' name='item_number' value='$id'>
-<input type='hidden' name='amount' value='price'>
+<input type='hidden' name='amount' value='$price'>
 <input type='hidden' name='undefined_quantity' value='1'>
 <input type='hidden' name='currency_code' value='$local_currency'>
 <input type='hidden' name='tax' value='0'>
