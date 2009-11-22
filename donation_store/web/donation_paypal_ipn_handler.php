@@ -332,7 +332,7 @@ else
 				fclose($log_fp);
 			}
 			
-			if ((strcmp($receiver_email, $my_email) !== 0) || (strcmp($receiver_id, $my_merchant_id)))
+			if ((strcmp($receiver_email, $my_email) !== 0) || (strcmp($receiver_id, $my_merchant_id) !== 0))
 			{
 				if ($invalid_txn_log_fp = fopen($invalid_txn_log, 'a+'))
 				{
