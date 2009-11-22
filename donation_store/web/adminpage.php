@@ -15,6 +15,7 @@ if (isset($_SESSION['login_succeed']) && $_SESSION['login_succeed'] === true)
 	$output .= "<a href=\"#info\" onclick=\"load('admin_ops.php?t=2')\">View all transactions in database</a><br/>";
 	$output .= "<a href=\"#info\" onclick=\"load('admin_ops.php?t=3')\">View all logs</a><br/>";
 	$output .= "<a href=\"#info\" onclick=\"load('admin_ops.php?t=5')\">Get donation buttons HTML code</a><br/>";
+	$output .= "<a href=\"#info\" onclick=\"load('admin_ops.php?t=6')\">Manual add gift to account</a><br/>";
 	$output .= "<a href=\"adminpage.php?logout=1\">Logout</a><br/>";
 }
 else
@@ -85,6 +86,11 @@ else
 				var i;
 				for (i in inputs) {
 					post_value += inputs[i].name + "=" + inputs[i].value + "&";
+				}
+				var selects = form.getElementsByTagName("select");
+				for (j in selects)
+				{
+					post_value += selects[j].name + "=" + selects[j].value + "&";
 				}
 				xmlhttp.onreadystatechange = loading;
 				xmlhttp.open("POST", uri, true);
