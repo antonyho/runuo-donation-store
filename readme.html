@@ -45,10 +45,17 @@
 		<br/>
 		</font>
 		</p>
+		<p style="text-align: left; line-height: 18px;">
+		<font style="font-family: Courier New,Monospace; font-size: 12px;">
+		Changelog:<br/>
+		(18/03/2010)<br/>
+		- support parameters for class<br/>
+		</font>
+		</p>
 		<p style="text-align: left; line-height: 18px; padding-top: 30px;">
 		<font style="font-family: Verdana,Sans-serif; font-size: 12px;">
 		<strong>Instructions:</strong><br/>
-		This system is working and is tested on RunUO 2.0. You have to configure the scripts in order to make it work on your shard and website.<br/>
+		This system is working and is tested over RunUO 2.0. You have to configure the scripts in order to make it work on your shard and website.<br/>
 		<br/>
 		<font style="font-style: italic;"><strong>Create your PayPal account:</strong></font><br/>
 		This system relays on PayPal payment system which can receive donation payment. <a href="https://www.paypal.com/hk/mrb/pal=4BTWTW75KQ5A2">PayPal</a> accepts many different credit or debit cards for the payment. Of course, it accepts VISA, Master, and AE cards. If you do not have PayPal account, create it for free immediately to receive your donation. &#62;&#62;&#62;<a href="https://www.paypal.com/hk/mrb/pal=4BTWTW75KQ5A2">Link to PayPal account registration</a>&#60;&#60;&#60;<br/>
@@ -59,6 +66,7 @@
 		<font style="font-style: italic;"><strong>RunUO script:</strong></font><br/>
 		Inside <strong>DonationStore.cs</strong>:<br/>
 		Edit <strong>DatabaseServer</strong>, <strong>DatabaseName</strong>, <strong>DatabaseUserID</strong>, <strong>DatabasePassword</strong> as your MySQL database connection information. Remember to grant [SELECT], [INSERT], [DELETE] rights to your user.<br/>
+		<font style="color: rgb(255,51,51);"><strong>Caution:</strong></font> If you don't have ODBC driver installed on your RunUO host server, please follow the solution in <a href="#q1">FAQ Q1</a> to install it.<br/>
 		<br/>
 		<font style="font-style: italic;"><strong>Web PHP script:</strong></font><br/>
 		Edit everything except the PayPal URL in <strong>config.php</strong> according to your system environment.<br/>
@@ -68,14 +76,30 @@
 		<font style="font-family: Verdana,Sans-serif; font-size: 12px;">
 		adminpage.php is the web back-office page. You can add/remove gift, check received PayPal transactions, getting auto-generated PayPal donation buttons.<br/>
 		<br/>
-		<font style="font-style: italic;"><strong>A hint for adding donation gift:</strong></font><br/>
+		<font style="font-style: italic;"><strong>Useage:</strong></font><br/>
 		The Class name is what you exactly type on RunUO command. For instance, "[add <strong>EtherealHorse</strong>". The "EtherealHorse" is the class name. Do not type it wrong or your player will fail to get the item.<br/>
+		Your can use "BankCheck 1000000" as class name using spaces to seperate the parameters for the class constructor. Player will get a 1,000,000gp bank cheque in the example. Becareful on using the parameter, you must check the constructor of your class to assure its have constructor to accept your parameters.<br/>
 		</font>
 		</p>
 		<p style="text-align: left; padding-top: 16px;">
 		<font style="font-family: Verdana,Sans-serif; font-size: 11px;">
 		OK! The set up should have done. Time to have beer. Cheers to all shard operators!<br/>
 		If you have got some problem on setting up the system, try send me an email. I will try my best to answer you, if I have time left after my baby daughter. Look aftering a baby is not easy, once again consider making donation to my script. ;)<br/>
+		</font>
+		</p>
+		<p style="text-align: left; line-height: 18px;">
+		<font style="font-family: Verdana,Sans-serif; font-size: 12px;">
+		<font style="font-size: 14px;"><strong>FAQ</strong></font><br/>
+		<br/>
+		<a name="q1">Q1: I have below error code when I use Donation Store Stone:</a><br/>
+		<font style="font-family: Fixedsys; color: rgb(255,255,255); background-color: rgb(0,0,0);">
+		System.Data.Odbc.OdbcException: ERROR [IM002] [Microsoft][ODBC Driver Manager] Data source name not found and no default driver specified
+		at System.Data.Odbc.OdbcConnection.HandleError(OdbcHandle hrHandle, RetCode retcode)
+		</font><br/>
+		<br/>
+		A: Your server does not have MySQL ODBC driver installed. Please download it from <a href="http://dev.mysql.com/downloads/connector/odbc/5.1.html">MySQL official site</a>. And change the DonationStore.cs file as below:<br/>
+		<font style="font-family: Fixedsys">DatabaseDriver = "{MySQL ODBC <font style="color: rgb(255,51,51);">5.1</font> Driver}",</font><br/>
+		You may change the driver version according to your ODBC driver version.
 		</font>
 		</p>
 	</body>

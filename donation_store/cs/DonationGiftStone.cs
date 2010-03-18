@@ -150,6 +150,7 @@ namespace Server.Gumps
 				if (gift != null)
 				{
 					m_From.AddToBackpack((Item)gift);
+					m_From.SendMessage("{0} has been placed in your backpack. Thank you for your donation!", gift.Name);
 				}
 			}
 		}

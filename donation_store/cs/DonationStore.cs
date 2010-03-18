@@ -40,6 +40,8 @@ using Server.Commands;
 
 namespace Server.Engines.PlayerDonation
 {
+	//public delegate Item ConstructCallback();
+	
 	public class DonationStore
 	{
 		
@@ -147,8 +149,8 @@ namespace Server.Engines.PlayerDonation
 				command.Transaction = transaction;
 				DateTime currTime = DateTime.Now;
 				
-				string className = GetClassNameByType(typeId);
-				gift = getGiftInstance(className);
+				string classConstructString = GetClassNameByType(typeId);
+				gift = getGiftInstance(classConstructString);
 				if ( gift == null)
 				{
 					Console.WriteLine(String.Format("[Redeem Donation Gift] Unable to finished the process. Gift(ID:{0}) for Account Name: {1}", giftId, username));
@@ -249,10 +251,12 @@ namespace Server.Engines.PlayerDonation
 			return className.Trim();
 		}
 		
-		public static IEntity getGiftInstance(string className)
+		public static IEntity getGiftInstance(string classConstructString)
 		{
 			IEntity gift = null;
 			//create the object of the gift by its name
+			string[] classContructParams = classConstructString.Split(' ');	// use space as sperator
+			string className = classContructParams[0];
 			Type giftType = ScriptCompiler.FindTypeByName( className );
 			ConstructorInfo[] ctors = giftType.GetConstructors();
 			
@@ -264,12 +268,19 @@ namespace Server.Engines.PlayerDonation
 					continue;
 
 				ParameterInfo[] paramList = ctor.GetParameters();
-				if ( paramList.Length == 0 )	// we don't use complex constructors to create the item
+				if ( paramList.Length == (classContructParams.Length - 1) )	// we don't use complex constructors to create the item
 				{
-					object[] param = new object[0];
+					string[] args = new string[classContructParams.Length - 1];
+					Array.Copy(classContructParams, 1, args, 0, args.Length);
+					object[] param = Add.ParseValues(paramList, args);
+					if (param == null)
+						continue;
 					object giftInstance = ctor.Invoke(param);
 					if (giftInstance != null)
+					{
 						gift = (IEntity)giftInstance;
+						break;
+					}
 					else
 						return null;
 				}
@@ -285,6 +296,10 @@ namespace Server.Engines.PlayerDonation
 				setterMethod.Invoke(gift, parameters);
 			}
 			
+			/*
+			ConstructCallback cstr = new ConstructCallback( className );
+			gift = cstr();
+			*/
 			
 			return gift;
 		}

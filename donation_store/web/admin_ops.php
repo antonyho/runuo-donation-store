@@ -49,18 +49,21 @@ if (isset($_SESSION['login_succeed']) && $_SESSION['login_succeed'] === true)
 				$output .= "</div>\n";
 				$output .= "<br/>\n<br/>\n<strong>Error Logs:</strong><br/>\n";
 				$output .= "<div style=\"border: dashed 1px; padding: 10px;\">\n";
+				$temp = "";
 				if (file_exists($error_log))
 					$temp = file_get_contents($error_log);
 				$output .= nl2br($temp);
 				$output .= "</div>\n";
 				$output .= "<br/>\n<br/>\n<strong>Invalid Transaction Logs:</strong><br/>\n";
 				$output .= "<div style=\"border: dashed 1px; padding: 10px;\">\n";
+				$temp = "";
 				if (file_exists($invalid_txn_log))
 					$temp = file_get_contents($invalid_txn_log);
 				$output .= nl2br($temp);
 				$output .= "</div>\n";
 				$output .= "<br/>\n<br/>\n<strong>All Received Requests From PayPal IPN:</strong><br/>\n";
 				$output .= "<div style=\"border: dashed 1px; padding: 10px;\">\n";
+				$temp = "";
 				if (file_exists($request_log))
 					$temp = file_get_contents($request_log);
 				$output .= nl2br($temp);
