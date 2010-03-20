@@ -137,7 +137,7 @@ function handle_payment($post_data)
 		$row = mysql_fetch_assoc($result);
 		$item_price = $row['price'];
 		
-		if ((strcmp($payment_currency,"HKD") != 0 ) || $payment_amount != ($item_quantity*$item_price))
+		if ((strcmp($payment_currency, $local_currency) != 0 ) || $payment_amount != ($item_quantity*$item_price))
 		{
 			if ($error_log_fp = fopen($error_log, 'a+'))
 			{
