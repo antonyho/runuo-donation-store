@@ -136,8 +136,10 @@ function handle_payment($post_data)
 		$result = mysql_query("SELECT price FROM gift_type WHERE type_id='$item_type_id'");
 		$row = mysql_fetch_assoc($result);
 		$item_price = $row['price'];
+		$payment_currency = trim($payment_currency);
+		$local_currency = trim($local_currency);
 		
-		if ((strcmp($payment_currency, $local_currency) != 0 ) || $payment_amount != ($item_quantity*$item_price))
+		if ((strcmp(strtoupper($payment_currency), strtoupper($local_currency)) != 0 ) || $payment_amount != ($item_quantity*$item_price))
 		{
 			if ($error_log_fp = fopen($error_log, 'a+'))
 			{
