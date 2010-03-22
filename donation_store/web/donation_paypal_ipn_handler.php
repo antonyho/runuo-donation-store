@@ -25,6 +25,7 @@ function handle_payment($post_data)
 	global $error_log;
 	//your handling in here.
 	require_once('mysqldb_lib.php');
+	require_once('config.php');
 	
 	/**** record the transaction ****/
 	// check the existence of transaction record in our db
@@ -40,6 +41,7 @@ function handle_payment($post_data)
 			$error_log_string .= "database failure\n";
 			$error_log_string .= "transaction id: ".$post_data['txn_id']."\n";
 			$error_log_string .= "today: ".$today."\n";
+			$error_log_string .= "Error message: ".mysql_error()."\n";
 			$error_log_string .= "=====================================\n";
 			write_to_log($error_log_fp, $error_log_string);
 			fclose($error_log_fp);
@@ -75,6 +77,7 @@ function handle_payment($post_data)
 				$error_log_string .= "query string: ".$query."\n";
 				$error_log_string .= "query succeed?: ".$result."\n";
 				$error_log_string .= "affected rows: ".mysql_affected_rows($result)."\n";
+				$error_log_string .= "Error message: ".mysql_error()."\n";
 				$error_log_string .= "=====================================\n";
 				write_to_log($error_log_fp, $error_log_string);
 				fclose($error_log_fp);
@@ -110,6 +113,7 @@ function handle_payment($post_data)
 				$error_log_string .= "transaction id: ".$post_data['txn_id']."\n";
 				$error_log_string .= "today: ".$today."\n";
 				$error_log_string .= "query string: ".$query."\n";
+				$error_log_string .= "Error message: ".mysql_error()."\n";
 				$error_log_string .= "=====================================\n";
 				write_to_log($error_log_fp, $error_log_string);
 				fclose($error_log_fp);
@@ -148,6 +152,10 @@ function handle_payment($post_data)
 				$error_log_string .= "transaction id: ".$txn_id."\n";
 				$error_log_string .= "today: ".$today."\n";
 				$error_log_string .= "account name: ".$account_name."\n";
+				$error_log_string .= "local currency: ".$local_currency."\n";
+				$error_log_string .= "IPN currency: ".$payment_currency."\n";
+				$error_log_string .= "Payment amount: ".$payment_amount."\n";
+				$error_log_string .= "quantity x price: ".$item_quantity." x ".$item_price."\n";
 				$error_log_string .= "=====================================\n";
 				write_to_log($error_log_fp, $error_log_string);
 				fclose($error_log_fp);
@@ -202,6 +210,7 @@ function handle_payment($post_data)
 				$error_log_string .= "today: ".$today."\n";
 				$error_log_string .= "account name: ".$account_name."\n";
 				$error_log_string .= "query: ".$complete_transaction_query."\n";
+				$error_log_string .= "Error message: ".mysql_error()."\n";
 				$error_log_string .= "=====================================\n";
 				write_to_log($error_log_fp, $error_log_string);
 				fclose($error_log_fp);
@@ -226,6 +235,7 @@ function handle_payment($post_data)
 					$error_log_string .= "account name: ".$account_name."\n";
 					$error_log_string .= "total redeemable gift: ".$item_quantity."\n";
 					$error_log_string .= "inserted number of gift: ".($i+1)."\n";
+					$error_log_string .= "Error message: ".mysql_error()."\n";
 					$error_log_string .= "=====================================\n";
 					write_to_log($error_log_fp, $error_log_string);
 					fclose($error_log_fp);
