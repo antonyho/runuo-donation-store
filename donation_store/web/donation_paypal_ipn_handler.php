@@ -13,7 +13,6 @@
 
 // PHP 4.1
 
-require_once('config.php');
 $today = date('d/m/Y H:i:s', time());
 
 
@@ -23,9 +22,9 @@ function handle_payment($post_data)
 	global $today;
 	global $log;
 	global $error_log;
-	//your handling in here.
 	require_once('mysqldb_lib.php');
 	require_once('config.php');
+	//your handling in here.
 	
 	/**** record the transaction ****/
 	// check the existence of transaction record in our db
