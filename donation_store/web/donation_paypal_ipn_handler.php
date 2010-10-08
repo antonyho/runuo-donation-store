@@ -12,7 +12,7 @@
 
 
 // PHP 4.1
-
+require_once('config.php');
 $today = date('d/m/Y H:i:s', time());
 
 
@@ -22,8 +22,8 @@ function handle_payment($post_data)
 	global $today;
 	global $log;
 	global $error_log;
+	global $accepted_currency;
 	require_once('mysqldb_lib.php');
-	require_once('config.php');
 	//your handling in here.
 	
 	/**** record the transaction ****/
@@ -90,6 +90,7 @@ function handle_payment($post_data)
 		$query_field_string = "";
 		$query_value_string = "";
 		
+		/* there are always unknown variables from PayPal IPN response, deprecated implementation
 		foreach ($post_data as $field => $value)
 		{
 			$query_field_string .= $field.",";
@@ -98,6 +99,27 @@ function handle_payment($post_data)
 			else
 				$query_value_string .= "'".$value."',";
 		}
+		*/
+		$result = mysql_query("SHOW COLUMNS FROM paypal_transaction");
+		while ($db_fields = mysql_fetch_assoc($result))
+		{
+			$field_name = $db_fields['Field'];
+			$field_type = $db_fields['Type'];
+			$query_field_string .= $field.",";
+			$response_value = $post_data[trim($field_name)];
+			if (empty($response_value))
+			{
+				if (strpos($field_type, "varchar") === false)
+					$query_value_string .= "'0',";
+				else
+					$query_value_string .= "'',";
+			}
+			else
+			{
+				$query_value_string .= "'".$response_value."',";
+			}
+		}
+		
 		$query_field_string = rtrim($query_field_string, ",");
 		$query_value_string = rtrim($query_value_string, ",");
 		
@@ -140,9 +162,9 @@ function handle_payment($post_data)
 		$row = mysql_fetch_assoc($result);
 		$item_price = $row['price'];
 		$payment_currency = trim($payment_currency);
-		$local_currency = trim($local_currency);
+		$accepted_currency = trim($accepted_currency);
 		
-		if ((strcmp(strtoupper($payment_currency), strtoupper($local_currency)) != 0 ) || $payment_amount != ($item_quantity*$item_price))
+		if ((strcmp(strtoupper($payment_currency), strtoupper($accepted_currency)) != 0 ) || $payment_amount != ($item_quantity*$item_price))
 		{
 			if ($error_log_fp = fopen($error_log, 'a+'))
 			{
@@ -380,6 +402,8 @@ else
 				}
 				return;
 			}
+			
+			$accepted_currency = $local_currency;
 			
 			handle_payment($_POST);
 		}

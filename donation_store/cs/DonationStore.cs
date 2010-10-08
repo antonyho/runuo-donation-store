@@ -55,6 +55,11 @@ namespace Server.Engines.PlayerDonation
 		static string ConnectionString = String.Format( "driver={0};server={1};database={2};uid={3};pwd={4}",
 			DatabaseDriver, DatabaseServer, DatabaseName, DatabaseUserID, DatabasePassword );
 		
+		public static void Initialize()
+        {
+            CommandSystem.Register("claimalldonationitems", AccessLevel.Player, new CommandEventHandler(ClaimAllDonationItems_OnCommand));
+        }
+		
 		public static ArrayList GetDonationGiftList(string username)
 		{
 			//get a list of item from redeemable_gift table
