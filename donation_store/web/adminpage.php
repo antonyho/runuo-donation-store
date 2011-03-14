@@ -113,7 +113,7 @@ else
 	<body>
 		<div style="width: 100%; height: 100%;" id="outter">
 			<div style="border: solid 2px; padding: 10px;" id="upper">
-				<?=$output; ?>
+				<?php print($output); ?>
 			</div>
 			<a name="info">
 			<div style="border: solid 2px; padding: 10px;" id="lower">

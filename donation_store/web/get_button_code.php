@@ -50,6 +50,6 @@ $output = htmlspecialchars($temp);
 	</head>
 	<body>
 		Copy the HTML code below:<br/>
-		<textarea cols="80" rows="20" onclick="select()" readonly><?=$output ?></textarea>
+		<textarea cols="80" rows="20" onclick="select()" readonly><?php print($output); ?></textarea>
 	</body>
 </html>
