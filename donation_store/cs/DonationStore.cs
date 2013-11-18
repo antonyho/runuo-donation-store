@@ -37,6 +37,8 @@ using Server;
 using Server.Misc;
 using Server.Network;
 using Server.Commands;
+using Server.Mobiles;
+using Server.Items;
 
 namespace Server.Engines.PlayerDonation
 {
@@ -56,9 +58,28 @@ namespace Server.Engines.PlayerDonation
 			DatabaseDriver, DatabaseServer, DatabaseName, DatabaseUserID, DatabasePassword );
 		
 		public static void Initialize()
-        {
-            CommandSystem.Register("claimalldonationitems", AccessLevel.Player, new CommandEventHandler(ClaimAllDonationItems_OnCommand));
-        }
+    {
+      CommandSystem.Register("claimalldonationitems", AccessLevel.Player, new CommandEventHandler(ClaimAllDonationItems_OnCommand));
+    }
+    
+    [Usage("ClaimAllDonationItems")]
+    [Description("Claim all donation items related to your account into your bank box.")]
+    public static void ClaimAllDonationItems_OnCommand(CommandEventArgs e)
+    {
+      PlayerMobile pm = (PlayerMobile)e.Mobile;
+      BankBox box = pm.FindBankNoCreate();
+      ArrayList itemList = GetDonationGiftList(pm.Account.Username);
+      for (int i=0; i < itemList.Count; i++)
+			{
+				DonationGift giftInfo = (DonationGift)itemList[i];
+				Item gift = RedeemGift(giftInfo.Id, pm.Account.Username) as Item;
+				if (!box.TryDropItem(pm, gift, false))
+					pm.AddToBackpack(gift);
+			}
+			
+			pm.SendMessage("{0} items has been placed in your bank box. Thank you for your donation!", itemList.Count);
+    }
+
 		
 		public static ArrayList GetDonationGiftList(string username)
 		{
@@ -103,6 +124,7 @@ namespace Server.Engines.PlayerDonation
 				{
 					command.Dispose();
 					connection.Close();
+          connection.Dispose();
 				}
 			}
 			
@@ -197,6 +219,7 @@ namespace Server.Engines.PlayerDonation
 				{
 					command.Dispose();
 					connection.Close();
+          connection.Dispose();
 				}
 			}
 			
@@ -250,6 +273,7 @@ namespace Server.Engines.PlayerDonation
 				{
 					command.Dispose();
 					connection.Close();
+          connection.Dispose();
 				}
 			}
 			
