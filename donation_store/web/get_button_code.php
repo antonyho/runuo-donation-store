@@ -10,7 +10,7 @@ if (isset($_SESSION['login_succeed']) && $_SESSION['login_succeed'] === true)
 	if (!(empty($id) || empty($name) || empty($price)))
 	{
 		require_once('config.php');
-		$pp_uri = str_replace("ssl", "http", $paypal_ipn_resp_addr)."/cgi-bin/webscr";
+		$pp_uri = str_replace("ssl", "https", $paypal_ipn_resp_addr)."/cgi-bin/webscr";
 	}
 }
 
