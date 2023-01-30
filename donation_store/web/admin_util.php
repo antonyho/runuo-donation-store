@@ -7,19 +7,18 @@ function query_to_table($query)
 {
 	require_once('mysqldb_lib.php');
 	
-	$result = mysql_query($query);
+	$result = mysqli_query($database, $query);
 	
 	$table = "<table border=\"1\">\n";
 	$table_header = "<tr>";
-	for ($i = 0; $i < mysql_num_fields($result); $i++)
+	while ($meta = mysqli_fetch_field($result))
 	{
-		$meta = mysql_fetch_field($result, $i);
 		$table_header .= "<th>".$meta->name."</th>";
 	}
 	$table_header .= "</tr>\n";
 	
 	$table_rows = "";
-	while ($row = mysql_fetch_assoc($result))
+	while ($row = mysqli_fetch_assoc($result))
 	{
 		$table_rows .= "<tr>";
 		foreach($row as $field_value)
@@ -30,6 +29,8 @@ function query_to_table($query)
 	}
 	$table .= $table_header.$table_rows;
 	$table .= "</table>\n";
+
+	mysqli_free_result($result);
 	
 	return $table;
 }
@@ -40,7 +41,7 @@ function add_new_gift($name, $class_name, $price)
 	
 	$query = "INSERT INTO gift_type (type_name,class_name,price) VALUES ('$name','$class_name','$price')";
 	
-	return mysql_query($query);
+	return mysqli_query($database, $query);
 }
 
 function remove_gift($id)
@@ -49,7 +50,7 @@ function remove_gift($id)
 	
 	$query = "DELETE FROM gift_type WHERE type_id='$id'";
 	
-	return mysql_query($query);
+	return mysqli_query($database, $query);
 }
 
 function get_gift_code_table()
@@ -58,20 +59,19 @@ function get_gift_code_table()
 	
 	$query = "SELECT * FROM gift_type";
 	
-	$result = mysql_query($query);
+	$result = mysqli_query($database, $query);
 	
 	$table = "<table border=\"1\">\n";
 	$table_header = "<tr>";
-	for ($i = 0; $i < mysql_num_fields($result); $i++)
+	for ($meta = mysqli_fetch_field($result))
 	{
-		$meta = mysql_fetch_field($result, $i);
 		$table_header .= "<th>".$meta->name."</th>";
 	}
 	$table_header .= "<th>Get Code</th>";
 	$table_header .= "</tr>\n";
 	
 	$table_rows = "";
-	while ($row = mysql_fetch_assoc($result))
+	while ($row = mysqli_fetch_assoc($result))
 	{
 		$table_rows .= "<tr>";
 		foreach($row as $field_value)
@@ -83,6 +83,8 @@ function get_gift_code_table()
 	}
 	$table .= $table_header.$table_rows;
 	$table .= "</table>\n";
+
+	mysqli_free_result($result);
 	
 	return $table;
 }
@@ -95,7 +97,7 @@ function manual_add_gift($type_id, $account_name, $quantity)
 	$query = "INSERT INTO redeemable_gift (type_id,account_name,donate_time,paypal_txn_id) VALUES ('$type_id','$account_name','$now','0000000000')";		// use 0000000000 as manual added gifts
 	for ($i=0; $i < $quantity; $i++)
 	{
-		mysql_query($query);
+		mysqli_query($database, $query);
 	}
 }
 
@@ -104,9 +106,9 @@ function get_gift_types()
 	require_once('mysqldb_lib.php');
 	
 	$query = "SELECT type_id, type_name FROM gift_type";
-	$result = mysql_query($query);
+	$result = mysqli_query($database, $query);
 	$gift_types = array();
-	while ($row = mysql_fetch_assoc($result))
+	while ($row = mysqli_fetch_assoc($result))
 		array_push($gift_types, $row);
 	
 	return $gift_types;

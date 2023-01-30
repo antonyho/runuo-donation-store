@@ -16,6 +16,8 @@ This system works promptly. Players can get their gift right after their payment
 
 ### Changelog:
 
+    (29/1/2023)
+    - updated PHP scripts to support newer PHP version. Be careful! This version only aims to support PHP 5.5.0 or later versions.
     (14/3/2011)
     - updated PHP scripts to avoid problem on web server which doesn't support short PHP tag.
     (8/10/2010)
