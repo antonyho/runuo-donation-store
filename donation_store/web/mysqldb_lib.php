@@ -7,8 +7,7 @@
 	
 	function connect_mysql()
 	{
-		$database = mysql_connect(DB_HOST,DB_USER,DB_PASS) or die();
-		mysql_select_db(DB_NAME, $database);
+		$database = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 			
 		return $database;
 	}
